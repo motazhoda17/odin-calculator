@@ -72,7 +72,8 @@ button:hover {
   color: #ff9500;
 }
 
-#clear {
+#clear,
+#backspace {
   background-color: #a5a5a5;
   color: #000;
 }

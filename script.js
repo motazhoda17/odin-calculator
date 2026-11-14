@@ -78,6 +78,13 @@ function inputDecimal() {
   updateDisplay();
 }
 
+function backspace() {
+  if (shouldResetDisplay) return; // don't edit a result or error message
+  displayValue = displayValue.slice(0, -1); // remove the last character
+  if (displayValue === "" || displayValue === "-") displayValue = "0";
+  updateDisplay();
+}
+
 function chooseOperator(nextOperator) {
   // A second number was typed (e.g. 12 + 7 then -): solve 12 + 7 first
   if (operator !== null && !shouldResetDisplay) {
@@ -159,3 +166,5 @@ document.querySelectorAll("[data-operator]").forEach((button) => {
 document.querySelector("#equals").addEventListener("click", evaluate);
 
 document.querySelector("#decimal").addEventListener("click", inputDecimal);
+
+document.querySelector("#backspace").addEventListener("click", backspace);
