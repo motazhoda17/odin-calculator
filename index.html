@@ -7,7 +7,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Calculator</h1>
+  <div class="calculator">
+    <div id="display">123</div>
+
+    <div class="buttons">
+      <button id="clear" class="wide-3">C</button>
+      <button class="operator" data-operator="/">÷</button>
+
+      <button data-digit="7">7</button>
+      <button data-digit="8">8</button>
+      <button data-digit="9">9</button>
+      <button class="operator" data-operator="*">×</button>
+
+      <button data-digit="4">4</button>
+      <button data-digit="5">5</button>
+      <button data-digit="6">6</button>
+      <button class="operator" data-operator="-">−</button>
+
+      <button data-digit="1">1</button>
+      <button data-digit="2">2</button>
+      <button data-digit="3">3</button>
+      <button class="operator" data-operator="+">+</button>
+
+      <button class="wide" data-digit="0">0</button>
+      <button id="equals" class="wide">=</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

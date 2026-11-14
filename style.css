@@ -1,3 +1,78 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e1e1e;
+}
+
+.calculator {
+  width: 360px;
+  padding: 20px;
+  border-radius: 16px;
+  background-color: #2d2d2d;
+}
+
+#display {
+  min-height: 72px;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #111;
+  color: #fff;
+  font-size: 36px;
+  text-align: right;
+  overflow-wrap: anywhere; /* long text wraps instead of spilling out */
+}
+
+/* Flexbox + wrap turns the buttons into rows of 4 */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+button {
+  width: 71px; /* 4 buttons + 3 gaps = 320px */
+  height: 64px;
+  border: none;
+  border-radius: 8px;
+  background-color: #444;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.2);
+}
+
+.wide {
+  width: 154px; /* 2 buttons + 1 gap */
+}
+
+.wide-3 {
+  width: 237px; /* 3 buttons + 2 gaps */
+}
+
+.operator,
+#equals {
+  background-color: #ff9500;
+}
+
+/* Highlights the operator you picked */
+.operator.active {
+  background-color: #fff;
+  color: #ff9500;
+}
+
+#clear {
+  background-color: #a5a5a5;
+  color: #000;
 }
