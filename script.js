@@ -44,9 +44,12 @@ function operate(operator, a, b) {
 
 // ----- Display -----
 const display = document.querySelector("#display");
+const decimalButton = document.querySelector("#decimal");
 
 function updateDisplay() {
   display.textContent = displayValue;
+  // Only one decimal point allowed per number
+  decimalButton.disabled = displayValue.includes(".") && !shouldResetDisplay;
 }
 
 // ----- Input -----
@@ -60,6 +63,17 @@ function inputDigit(digit) {
   } else {
     if (displayValue.length >= 12) return; // don't overflow the display
     displayValue += digit;
+  }
+  updateDisplay();
+}
+
+function inputDecimal() {
+  if (shouldResetDisplay) {
+    displayValue = "0."; // start a new number like 0.5
+    shouldResetDisplay = false;
+    highlightOperator(null);
+  } else if (!displayValue.includes(".")) {
+    displayValue += ".";
   }
   updateDisplay();
 }
@@ -143,3 +157,5 @@ document.querySelectorAll("[data-operator]").forEach((button) => {
 });
 
 document.querySelector("#equals").addEventListener("click", evaluate);
+
+document.querySelector("#decimal").addEventListener("click", inputDecimal);

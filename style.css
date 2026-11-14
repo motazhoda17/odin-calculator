@@ -76,3 +76,8 @@ button:hover {
   background-color: #a5a5a5;
   color: #000;
 }
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
