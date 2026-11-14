@@ -67,8 +67,12 @@ function inputDigit(digit) {
 function chooseOperator(nextOperator) {
   // A second number was typed (e.g. 12 + 7 then -): solve 12 + 7 first
   if (operator !== null && !shouldResetDisplay) {
-    evaluate();
+    const solved = evaluate();
+    if (!solved) return; // e.g. divided by 0
   }
+
+  // Can't use an error message as a number
+  if (Number.isNaN(Number(displayValue))) return;
 
   // If an operator was just pressed, this simply replaces it (2 + - means 2 -)
   firstNumber = Number(displayValue);
@@ -79,18 +83,36 @@ function chooseOperator(nextOperator) {
 
 function evaluate() {
   // Need firstNumber, operator AND a typed secondNumber before solving
-  if (operator === null || shouldResetDisplay) return;
+  if (operator === null || shouldResetDisplay) return false;
 
   secondNumber = Number(displayValue);
+
+  if (operator === "/" && secondNumber === 0) {
+    clearAll();
+    displayValue = "Nice try. No dividing by 0!";
+    shouldResetDisplay = true;
+    updateDisplay();
+    return false;
+  }
+
   const result = operate(operator, firstNumber, secondNumber);
 
-  displayValue = String(result);
+  displayValue = formatResult(result);
   firstNumber = null;
   operator = null;
   secondNumber = null;
   shouldResetDisplay = true; // a new digit starts a new calculation
   updateDisplay();
   highlightOperator(null);
+  return true;
+}
+
+// Round long decimals so they fit on the display
+function formatResult(number) {
+  const rounded = Math.round(number * 100000000) / 100000000; // 8 decimal places
+  const text = String(rounded);
+  // Huge numbers switch to scientific notation, e.g. 1.234568e+15
+  return text.length > 12 ? rounded.toExponential(6) : text;
 }
 
 function highlightOperator(selected) {
