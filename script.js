@@ -168,3 +168,24 @@ document.querySelector("#equals").addEventListener("click", evaluate);
 document.querySelector("#decimal").addEventListener("click", inputDecimal);
 
 document.querySelector("#backspace").addEventListener("click", backspace);
+
+// ----- Keyboard support -----
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+
+  if (/^[0-9]$/.test(key)) {
+    inputDigit(key);
+  } else if (key === ".") {
+    inputDecimal();
+  } else if (key === "+" || key === "-" || key === "*" || key === "/") {
+    event.preventDefault(); // stop "/" from opening the browser's quick find
+    chooseOperator(key);
+  } else if (key === "Enter" || key === "=") {
+    event.preventDefault(); // stop Enter from also clicking a focused button
+    evaluate();
+  } else if (key === "Backspace") {
+    backspace();
+  } else if (key === "Escape") {
+    clearAll();
+  }
+});
